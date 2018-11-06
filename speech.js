@@ -2,7 +2,7 @@
 if (!('webkitSpeechRecognition' in window)) {
   // Something if not supported
 } else {
-  // If Web Speech API is supported
+  // If Web Speech API is supported...
 
   // Set default language / dialect.
   const selectedLanguage = 'pl-PL';
@@ -12,9 +12,12 @@ if (!('webkitSpeechRecognition' in window)) {
   let IgnoreOnend;
   let startTimestamp;
 
-  let recognition = new webkitSpeechRecognition();
+  // Init Web Speech API
+  const recognition = new webkitSpeechRecognition();
+  // Default is false. If true recording don't stop when speaks ends
   recognition.continuous = false;
-  recognition.interimResults = true;
+  // Default value for is false, meaning that the only results returned by the recognizer are final and will not change.
+  recognition.interimResults = false;
 
   const startButton = (event) => {
     if (recognizing) {
@@ -29,13 +32,16 @@ if (!('webkitSpeechRecognition' in window)) {
     startTimestamp = event.timeStamp;
   };
 
+  // Bind startButton function on microphone click
   $('.button__image').on('click', startButton);
 
+  // On start recording
   recognition.onstart = () => {
     recognizing = true;
     $('.button__dots').fadeIn(300);
   };
 
+  // On error
   recognition.onerror = (event) => {
     console.log('Event error:', event.error);
     if (event.error === 'no-speech') {
@@ -54,6 +60,7 @@ if (!('webkitSpeechRecognition' in window)) {
     }
   };
 
+  // On recording end
   recognition.onend = () => {
     recognizing = false;
     if (IgnoreOnend) {
@@ -63,6 +70,7 @@ if (!('webkitSpeechRecognition' in window)) {
     $('.button__dots').fadeOut(300);
   };
 
+  // On recording result/s
   recognition.onresult = (event) => {
     if (typeof (event.results) === 'undefined') {
       recognition.onend = null;
