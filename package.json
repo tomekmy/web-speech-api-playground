@@ -1,0 +1,14 @@
+{
+  "name": "ikar_speech",
+  "version": "1.0.0",
+  "description": "Speech API Playground",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tomasz Myśliwiec",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
